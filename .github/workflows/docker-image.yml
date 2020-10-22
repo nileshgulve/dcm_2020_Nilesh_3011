@@ -23,6 +23,5 @@ jobs:
         echo $PASS
         docker build . --file Dockerfile --tag nileshgulve/dcm_web_server
         docker login -u $USER -p $PASS
-        
         docker push nileshgulve/dcm_web_server:latest
     
