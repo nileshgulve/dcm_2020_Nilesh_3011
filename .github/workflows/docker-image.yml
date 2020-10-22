@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      env:
+        USER: ${{ secrets.USERNAME }}
+        PASS: ${{ secrets.PASS }}
+      run: |
+        echo $USER
+        echo $PASS
+        ddocker build . --file Dockerfile --tag nileshgulve/dcm_web_server
+        docker login -u $USER -p $PASS
+        
+        docker push nileshgulve/dcm_web_server:latest
+    
